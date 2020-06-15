@@ -38,8 +38,8 @@ namespace HalloGenerics
     public class BananenSaft : ISaft
     { }
 
-    class Mixer<DingRein, Raus> where DingRein : IObst
-                                 where Raus : ISaft
+    public class Mixer<DingRein, Raus> where DingRein : IObst
+                                  where Raus : ISaft
     {
         public Raus Mixe(DingRein rein)
         {
@@ -94,7 +94,7 @@ namespace HalloGenerics
             Console.WriteLine($"Die Drei: {eins},{zwei},{drei}");
         }
 
-        private static void ArrayListBeispiel()
+        public static void ArrayListBeispiel()
         {
             ArrayList al = new ArrayList();
             al.Add(5);
