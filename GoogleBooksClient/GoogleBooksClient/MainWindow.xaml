@@ -1,0 +1,33 @@
+﻿<Window x:Class="GoogleBooksClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GoogleBooksClient"
+        mc:Ignorable="d" FontSize="22"
+        Title="MainWindow" Height="450" Width="800">
+    <DockPanel>
+        <WrapPanel DockPanel.Dock="Top" Margin="0,4">
+            <Label>Bücher:</Label>
+            <TextBox Name="tb1" Width="200"/>
+            <Button Click="Search">Suchen</Button>
+        </WrapPanel>
+        <WrapPanel DockPanel.Dock="Top" Margin="0,4">
+            <Button Click="SaveAsJSON">Speichern als JSON...</Button>
+            <Button Click="OpenJSON">Öffne JSON...</Button>
+            <Button Click="SaveAsXML">Speichern als XML...</Button>
+            <Button Click="OpenXML">Öffne XML...</Button>
+            <Button Click="SaveAsBin">Speichern als DAT...</Button>
+            <Button Click="OpenDat">Öffne DAT...</Button>
+            
+        </WrapPanel>
+        <TabControl>
+            <TabItem Header="Grid">
+                <DataGrid Name="myGrid"/>
+            </TabItem>
+            <TabItem Header="Json">
+                <TextBox Name="jsonTb"/>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>
