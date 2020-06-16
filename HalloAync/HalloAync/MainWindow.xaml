@@ -5,13 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HalloAync"
         mc:Ignorable="d" FontSize="22"
-        Title="MainWindow" Height="250" Width="300">
+        Title="MainWindow" Height="450" Width="300">
     <StackPanel>
         <Button Click="StartOhneThread" IsEnabled="False">Start ohne Threads</Button>
         <Button Click="StartTask">Start mit Task</Button>
         <Button Click="StartTaskMitTS">Start mit Task mit TS</Button>
         <Button Click="LadeVonDB">Start DB</Button>
+        <Button Click="StartAsyncAwait">Start mit Async/Await</Button>
+        <Button Click="StartAsyncAwaitDB">DB Query mit Async/Await</Button>
         <ProgressBar Name="pb1" Height="32"/>
+        <Button Click="Abbrechen" Background="LightCoral">Abbrechen</Button>
+        <Button Click="StartOldAndSlow">Start alte, langsame Funktion</Button>
+        
         <ListBox Name="lb" Height="400"/>
     </StackPanel>
 </Window>
