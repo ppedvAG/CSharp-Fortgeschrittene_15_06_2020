@@ -13,11 +13,51 @@ namespace HalloTPL
         {
             Console.WriteLine("*** Hallo TPL ***");
 
-            Parallel.For(0, 100000, i => Console.WriteLine(i));
+            //Parallel.For(0, 100000, i => Console.WriteLine(i));
             //Parallel.Invoke(Zähle, Zähle, Zähle, () => { ZeigeText("lala"); }, Zähle, Zähle, Zähle, Zähle, Zähle, Zähle, Zähle);
-            var texte = new List<string>();
-            foreach (var item in texte.Where(x => x.StartsWith("b")).AsParallel())
-            { }
+            //var texte = new List<string>();
+            //foreach (var item in texte.Where(x => x.StartsWith("b")).AsParallel())
+            //{ }
+
+
+            var t1 = new Task(() =>
+            {
+                Console.WriteLine("T1 gestartet");
+                Thread.Sleep(1800);
+                Console.WriteLine("T1 fertig");
+                throw new FieldAccessException();
+                //Zähle();
+            });
+
+
+            var t2 = new Task<long>(() =>
+            {
+                Console.WriteLine("T2 gestartet");
+                Thread.Sleep(1200);
+                Console.WriteLine("T2 fertig");
+                //Zähle();
+                while (true)
+                {
+
+                }
+                return 34567834567;
+            });
+
+
+            var t1c = t1.ContinueWith(t => Console.WriteLine("T1 Continue"), TaskContinuationOptions.None);
+            t1.ContinueWith(t => Console.WriteLine("T1 OK"), TaskContinuationOptions.OnlyOnRanToCompletion);
+            t1.ContinueWith(t => Console.WriteLine($"T1 ERROR {t.Exception.InnerException.Message}"), TaskContinuationOptions.OnlyOnFaulted);
+
+            t1.Start();
+            t2.Start();
+          
+
+            if (t2.Wait(500))
+                Console.WriteLine($"Result of T2: {t2.Result}");
+            else
+                Console.WriteLine("T2 nach 5 Sekunden nicht fertig");
+
+
 
 
             Console.WriteLine("Ende");
