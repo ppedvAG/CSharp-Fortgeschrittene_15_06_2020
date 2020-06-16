@@ -1,0 +1,17 @@
+﻿<Window x:Class="HalloAync.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HalloAync"
+        mc:Ignorable="d" FontSize="22"
+        Title="MainWindow" Height="250" Width="300">
+    <StackPanel>
+        <Button Click="StartOhneThread" IsEnabled="False">Start ohne Threads</Button>
+        <Button Click="StartTask">Start mit Task</Button>
+        <Button Click="StartTaskMitTS">Start mit Task mit TS</Button>
+        <Button Click="LadeVonDB">Start DB</Button>
+        <ProgressBar Name="pb1" Height="32"/>
+        <ListBox Name="lb" Height="400"/>
+    </StackPanel>
+</Window>
