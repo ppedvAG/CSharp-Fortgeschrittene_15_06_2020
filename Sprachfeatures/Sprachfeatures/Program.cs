@@ -72,9 +72,16 @@ namespace Sprachfeatures
                 Console.WriteLine(item);
             }
 
+#nullable enable
+            StringComparer sc = null;
+
+            sc.Compare(1, 2);
+#nullable disable
+
             Console.WriteLine("Ende");
             Console.ReadKey();
         }
+       
 
 
         static async IAsyncEnumerable<string> GetTexteNEW_ab8_0()
@@ -142,5 +149,13 @@ namespace Sprachfeatures
         static (int wert, string einheit, ExecutionEngineException) GetZeug() => (6, "km", new ExecutionEngineException());
 
 
+    }
+
+    interface IZeug
+    {
+        internal void Gettext(string txt)
+        {
+            Console.WriteLine(txt);
+        }
     }
 }
