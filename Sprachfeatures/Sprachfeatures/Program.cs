@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,6 +13,28 @@ namespace Sprachfeatures
 
         async static Task Main(string[] args)
         {
+            DateTime dt = DateTime.Now;
+            int kw = dt.GetKW();
+
+
+            DbProviderFactory factory = Microsoft.Data.SqlClient.SqlClientFactory.Instance;
+            //DbProviderFactory factory = Microsoft.Data.Sqlite.SqliteFactory.Instance;
+            string sql = "Server=(localdb)\\mssqllocaldb;Database=Northwnd;Trusted_Connection=true";
+            string lite = @"Data Source=c:\db\Northwind.sqlite";
+
+            var con = factory.CreateConnection();
+            con.ConnectionString = sql;
+            con.Open();
+            var cmd = factory.CreateCommand();
+            cmd.Connection = con;
+            cmd.CommandText = "SELECT * FROM Employees";
+            var reader = cmd.ExecuteReader();
+            while (reader.Read())
+                Console.WriteLine($"{reader["FirstName"]} {reader["LastName"]}");
+
+            con.Close();
+
+
             Console.WriteLine("Hello World!");
             #region tupel
             string txt = "sieben";
@@ -81,7 +104,7 @@ namespace Sprachfeatures
             Console.WriteLine("Ende");
             Console.ReadKey();
         }
-       
+
 
 
         static async IAsyncEnumerable<string> GetTexteNEW_ab8_0()
@@ -151,11 +174,22 @@ namespace Sprachfeatures
 
     }
 
-    interface IZeug
+
+
+    interface IZeug<T> where T : class
     {
         internal void Gettext(string txt)
         {
             Console.WriteLine(txt);
+        }
+    }
+
+
+    static class DateEx
+    {
+        public static int GetKW(this DateTime dt)
+        {
+            return 25;
         }
     }
 }

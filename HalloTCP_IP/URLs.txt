@@ -1,0 +1,5 @@
+
+https://stackoverflow.com/questions/44924744/c-sharp-multithreading-chat-server-handle-disconnect/44942011#44942011
+
+
+http://csharp.net-informations.com/communications/csharp-chat-server.htm
