@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace HalloTPL
         {
             Console.WriteLine("*** Hallo TPL ***");
 
+            
             //Parallel.For(0, 100000, i => Console.WriteLine(i));
             //Parallel.Invoke(Zähle, Zähle, Zähle, () => { ZeigeText("lala"); }, Zähle, Zähle, Zähle, Zähle, Zähle, Zähle, Zähle);
             //var texte = new List<string>();
@@ -28,6 +30,12 @@ namespace HalloTPL
                 throw new FieldAccessException();
                 //Zähle();
             });
+
+            ConcurrentBag<string> threadsafeList = new ConcurrentBag<string>();
+            threadsafeList.Add("lala");
+            threadsafeList.Add("lala");
+
+            //var cc = new System.Globalization.
 
 
             var t2 = new Task<long>(() =>
