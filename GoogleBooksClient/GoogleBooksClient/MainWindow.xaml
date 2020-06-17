@@ -19,6 +19,7 @@
             <Button Click="OpenXML">Öffne XML...</Button>
             <Button Click="SaveAsBin">Speichern als DAT...</Button>
             <Button Click="OpenDat">Öffne DAT...</Button>
+            <Button Click="SerTupel">Serialize Tupel</Button>
             
         </WrapPanel>
         <TabControl>

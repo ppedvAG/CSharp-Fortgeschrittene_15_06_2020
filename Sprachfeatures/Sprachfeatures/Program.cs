@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Sprachfeatures
@@ -8,10 +10,10 @@ namespace Sprachfeatures
     {
         private int myProperty;
 
-        static void Main(string[] args)
+        async static Task Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-
+            #region tupel
             string txt = "sieben";
             string txt2 = "7";
 
@@ -20,20 +22,24 @@ namespace Sprachfeatures
             var wert = GetZeug();
             (int value, string unit, var ex) = GetZeug();
             Console.WriteLine(value);
+            #endregion
 
+            #region tryparse
             //int txtAlsZahl;
             if (int.TryParse(txt2, out int txtAlsZahl))
             {
                 Console.WriteLine($"Zahl ist ok: {txtAlsZahl}");
             }
+            #endregion
+
+            #region funktionen
 
             void LokaleFunktion()
             {
                 Console.WriteLine("Lokal");
             }
 
-
-            int zahllll = txt.Length > 7 ? 18 : throw new ExecutionEngineException();
+            int zahllll = txt.Length < 7 ? 18 : throw new ExecutionEngineException();
 
             if (txt.Length > 7)
                 zahllll = 18;
@@ -47,8 +53,73 @@ namespace Sprachfeatures
             //int w2 = Verdoppelt(w);
             VerdoppeltRef(ref w);
 
+
+            EineFunktion(11);
+            EineFunktion(11, 112);
+            EineFunktion(11, 112, "lala", 1.22);
+            EineFunktion(11, dd: 8.99); //neu 7.2
+            #endregion
+
+
+            Console.WriteLine("####################### yield");
+            foreach (string item in GetTexte())
+            {
+                Console.WriteLine(item);
+            }
+
+            await foreach (string item in GetTexteNEW_ab8_0())
+            {
+                Console.WriteLine(item);
+            }
+
             Console.WriteLine("Ende");
             Console.ReadKey();
+        }
+
+
+        static async IAsyncEnumerable<string> GetTexteNEW_ab8_0()
+        {
+            //ohne yield
+            //var texte = new List<string>();
+            //texte.Add("Hallo");
+            //texte.Add("Welt");
+            //texte.Add("wie");
+            //texte.Add("geht's?");
+            //return texte;
+
+            await Task.Delay(500);
+            yield return "Hallo";
+            await Task.Delay(500);
+            yield return "Welt";
+            await Task.Delay(500);
+            yield return "Wie";
+            await Task.Delay(500);
+            yield return "geht's?";
+        }
+
+        static IEnumerable<string> GetTexte()
+        {
+            //ohne yield
+            //var texte = new List<string>();
+            //texte.Add("Hallo");
+            //texte.Add("Welt");
+            //texte.Add("wie");
+            //texte.Add("geht's?");
+            //return texte;
+
+            Thread.Sleep(500);
+            yield return "Hallo";
+            Thread.Sleep(500);
+            yield return "Welt";
+            Thread.Sleep(500);
+            yield return "Wie";
+            Thread.Sleep(500);
+            yield return "geht's?";
+        }
+
+        static int EineFunktion(int muss, int zahl = 45, string txt = default, double dd = 99.90)
+        {
+            return zahl;
         }
 
         // static ref int Verdoppelt(int zahl)
@@ -59,10 +130,11 @@ namespace Sprachfeatures
 
         public int MyProperty
         {
-            get=> "wekljnwekljnf".Length > 7 ? 18 : throw new ExecutionEngineException();
+            get => "wekljnwekljnf".Length > 7 ? 18 : throw new ExecutionEngineException();
 
             set => new ExecutionEngineException();
         }
+
 
         static void VerdoppeltRef(ref int zahl) => zahl *= 2;
 

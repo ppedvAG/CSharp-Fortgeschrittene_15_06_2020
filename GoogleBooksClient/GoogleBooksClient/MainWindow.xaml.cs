@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -113,6 +114,32 @@ namespace GoogleBooksClient
                     myGrid.ItemsSource = (IEnumerable<Volumeinfo>)serial.Deserialize(sr);
                 }
             }
+        }
+
+        private void SerTupel(object sender, RoutedEventArgs e)
+        {
+            List<Tuple<string, DateTime, int, Tuple<string, string>>> dataNein = new List<Tuple<string, DateTime, int, Tuple<string, string>>>();//nein
+            List<DateTime> data = new List<DateTime>();
+            data.Add(DateTime.Now.AddDays(0));
+            data.Add(DateTime.Now.AddDays(1));
+            data.Add(DateTime.Now.AddDays(2));
+            data.Add(DateTime.Now.AddDays(3));
+            var query = from d in data
+                        where d.Day > 15
+                        orderby d.Month
+                        select new { Tag = d.Day, Jahr = d.Year, Monat = d.Month, text = "Der steht immer hier" };
+
+
+            string ausgabeTage = string.Join(", ", data.OrderByDescending(x => x.Day).Select(x => x.ToString("dddd")));
+
+
+            //var t = (12, "lalal", DateTime.Now);
+            var t = (z: 12, text: "lalal", Heute: DateTime.Now);
+            var anoClass = new { Zahl = 12, Text = "lala", Heute = DateTime.Now };
+
+            //var json = System.Text.Json.JsonSerializer.Serialize(t);
+            var json = System.Text.Json.JsonSerializer.Serialize(anoClass);
+            File.WriteAllText("tupel.json", json);
         }
     }
 }
